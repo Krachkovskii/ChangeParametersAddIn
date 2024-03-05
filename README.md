@@ -12,5 +12,6 @@ Current features:
 
 WIP:
 * Adding unit symbols to parameter values
+* Update UI
 
 After building, the add-in can be found in *Add-Ins -> External Tools -> Transfer parameters*
