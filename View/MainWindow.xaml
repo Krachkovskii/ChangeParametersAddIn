@@ -1,0 +1,220 @@
+﻿<Window x:Class="Test1203.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test1203"
+        mc:Ignorable="d"
+        Title="Window1" 
+        Height="600" 
+        Width="864"
+        FontSize="18" 
+        SizeChanged="Window_SizeChanged" 
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*" x:Name="OneThirdColumn"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+            
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="3"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="Element1Button"                    
+                        Content="Select Element 1"
+                        Click="El1_Click"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"/>
+
+                <Button x:Name="HighlightElement1"
+                        Click="Highlight1_Click"
+                        Grid.Column="2"
+                        ToolTip="Highlight element in model">
+                    <Image Source="/Resources/Images/search.png"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                </Button>
+            </Grid>
+            
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+            Grid.Column="5"
+            Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="Element2Button"                    
+                        Content="Select Element 2"
+                        Click="El2_Click"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"/>
+
+                <Button x:Name="HighlightElement2"
+                        Click="Highlight2_Click"
+                        Grid.Column="2"
+                        ToolTip="Highlight element in model">
+                    <Image Source="/Resources/Images/search.png"
+                           Height="30"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                </Button>
+            </Grid>
+
+        </StackPanel>
+
+        <StackPanel x:Name="InfoPanel"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Grid.Row="3">
+            <TextBlock Text="Category"/>
+            <TextBlock Text="Family Type"/>
+            <TextBlock Text="ID"/>
+        </StackPanel>
+        
+        <StackPanel x:Name="Element1Info" 
+                    Orientation="Vertical"
+                    Grid.Column="3"
+                    Grid.Row="3">
+            <TextBlock x:Name="El1Category"/>
+            <TextBlock x:Name="El1Type"/>
+            <TextBlock x:Name="El1Id"/>
+        </StackPanel>
+
+        <StackPanel x:Name="Element2Info" 
+                    Orientation="Vertical"
+                    Grid.Column="5"
+                    Grid.Row="3">
+            <TextBlock x:Name="El2Category"/>
+            <TextBlock x:Name="El2Type"/>
+            <TextBlock x:Name="El2Id"/>
+        </StackPanel>
+
+        <Border x:Name="CoverRectangle"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                Grid.Row="3"
+                Grid.RowSpan="5"
+                Background="White"
+                Panel.ZIndex="9999"
+                BorderThickness="0"
+                Visibility="Hidden"/>
+
+        <DataGrid x:Name="ParameterTable"
+                  AutoGenerateColumns="False"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="5"
+                  Grid.Row="5"
+                  Background="White"
+                  VerticalGridLinesBrush="Transparent"
+                  HorizontalGridLinesBrush="LightGray"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  SelectionMode="Single"
+                  SelectionUnit="Cell"
+                  MinRowHeight="25"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  HeadersVisibility="None">
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" 
+                                 Handler="DataGridCell_Clicked"/>
+                    <EventSetter Event="Selected"
+                                 Handler="DataGridCell_Selected"/>
+                </Style>
+            </DataGrid.CellStyle>
+
+
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn x:Name="CheckBoxColumn"
+                                        Binding="{Binding IsChecked}"
+                                        IsThreeState="False"
+                                        Width="50">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" 
+                                         Handler="DataGridCell_Clicked"/>
+                            <EventSetter Event="Selected"
+                                         Handler="DataGridCell_Selected"/>
+                            <EventSetter Event="CheckBox.Checked" 
+                                         Handler="CheckBox_Checked"/>
+                            <EventSetter Event="CheckBox.Unchecked" 
+                                         Handler="CheckBox_Unchecked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+
+                <DataGridTextColumn x:Name="NameColumn"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ParameterName}"/>
+
+                <DataGridTextColumn x:Name="El1Column"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Parameter1_Value}"/>
+
+                <DataGridTextColumn x:Name="El2Column"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Parameter2_Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+
+        <TextBlock Text="Transfer parameters:"
+                   Grid.Column="1"
+                   Grid.Row="7"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   FontWeight="Bold"/>
+
+        <Button x:Name="Transfer_1to2"
+                Grid.Column="3"
+                Grid.Row="7"
+                Content="To Element 2"
+                Click="Transfer_1to2_Click"/>
+
+        <Button x:Name="Transfer_2to1"
+                Grid.Column="5"
+                Grid.Row="7"
+                Content="To element 1"
+                Click="Transfer_2to1_Click"/>
+
+    </Grid>
+</Window>

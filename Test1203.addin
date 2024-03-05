@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Command">
+		<Text>Transfer parameters</Text>
+		<Description>Transfer parameters from any two selected elements.</Description>
+		<Assembly>Test1203.dll</Assembly>
+		<FullClassName>Test1203.Command</FullClassName>
+		<ClientId>8fb9e8c7-016c-4e0a-86a7-00e7af7f3d95</ClientId>
+		<VendorId>Ilia</VendorId>
+		<VendorDescription>ILIA KRACHKOVSKII</VendorDescription>
+	</AddIn>
+</RevitAddIns>
